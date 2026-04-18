@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://r22x5m80hsfy"]
 
-[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/GravityTest.gdshader" id="1_dep8n"]
-[ext_resource type="Script" uid="uid://bn1bv3ewl0mbc" path="res://scripts/ball.gd" id="2_f7hd6"]
+[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/checkerboard.gdshader" id="1_dep8n"]
+[ext_resource type="Script" path="res://scripts/ball.gd" id="2_f7hd6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ekfhq"]
 

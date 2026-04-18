@@ -3,21 +3,38 @@
 [ext_resource type="Script" uid="uid://bt1vcskb3u2v2" path="res://scripts/solar_system.gd" id="1_auk15"]
 [ext_resource type="PackedScene" uid="uid://du50gcmxbaemq" path="res://scenes/player.tscn" id="2_ms4l2"]
 [ext_resource type="Script" uid="uid://bsv7ech4dxba7" path="res://scripts/camera_3d.gd" id="3_tfb7d"]
-[ext_resource type="PackedScene" uid="uid://b4xx0hlhs51by" path="res://scenes/planet.tscn" id="4_swmsm"]
+[ext_resource type="PackedScene" uid="uid://es7fcvqjfahd" path="res://scenes/planet.tscn" id="4_swmsm"]
+[ext_resource type="Script" uid="uid://byj05s65dln6n" path="res://tut/PlanetData.gd" id="5_sjaf3"]
 
 [sub_resource type="Environment" id="Environment_ms4l2"]
 background_mode = 1
 background_color = Color(0.0392157, 0.0392157, 0.101961, 1)
+background_energy_multiplier = 2.85
 ambient_light_color = Color(0.136623, 0.372036, 0.999999, 1)
-ambient_light_energy = 0.1
+ambient_light_energy = 0.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_hp4wh"]
-radius = 1.5
-height = 3.0
+radius = 20.0
+height = 40.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swmsm"]
 emission_enabled = true
 emission = Color(1, 1, 0.835294, 1)
+
+[sub_resource type="Resource" id="Resource_2yas3"]
+script = ExtResource("5_sjaf3")
+radius = 6.71
+metadata/_custom_type_script = "uid://byj05s65dln6n"
+
+[sub_resource type="Resource" id="Resource_86ma8"]
+script = ExtResource("5_sjaf3")
+radius = 7.0
+metadata/_custom_type_script = "uid://byj05s65dln6n"
+
+[sub_resource type="Resource" id="Resource_yjurn"]
+script = ExtResource("5_sjaf3")
+radius = 10.0
+metadata/_custom_type_script = "uid://byj05s65dln6n"
 
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
 script = ExtResource("1_auk15")
@@ -37,22 +54,27 @@ shadow_enabled = true
 omni_range = 40.0
 
 [node name="Player" parent="." unique_id=307141274 instance=ExtResource("2_ms4l2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.86067, 7.957361, 0)
+jump_force = 50.0
+thrust_force = 20.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1964957377]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
 script = ExtResource("3_tfb7d")
-zoom_distance = 8.0
+zoom_grounded = 5.0
+zoom_space = 50.0
+zoom_speed = 5.0
 
-[node name="PlanetA" parent="." unique_id=1577400075 instance=ExtResource("4_swmsm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-biome = 1
+[node name="PlanetA" parent="." unique_id=66095273 instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.75145, 0, 0)
+planet_data = SubResource("Resource_2yas3")
+radius = 6.71
 
-[node name="PlanetB" parent="." unique_id=512571602 instance=ExtResource("4_swmsm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
-radius = 1.4
+[node name="PlanetB" parent="." unique_id=1355810454 instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.81364, 0, 0)
+planet_data = SubResource("Resource_86ma8")
+radius = 7.0
 
-[node name="PlanetC" parent="." unique_id=966588231 instance=ExtResource("4_swmsm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.277, 0, 0)
-radius = 2.0
-biome = 3
+[node name="PlanetC" parent="." unique_id=1105985594 instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.26682, 0, 0)
+planet_data = SubResource("Resource_yjurn")

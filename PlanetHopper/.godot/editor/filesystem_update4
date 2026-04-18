@@ -1,3 +1,8 @@
-res://GravityTest.tscn
-res://solar_system.tscn
-res://scripts/solar_system.tscn
+res://mat/checkerboard.gdshader
+res://tut/planet.gdshader
+res://tut/PlanetMaterial.tres
+res://scenes/planet.tscn
+res://scripts/planet.gd
+res://scenes/solar_system.tscn
+res://tut/PlanetMeshFace.gd
+res://tut/planet.tscn

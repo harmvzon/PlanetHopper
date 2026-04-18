@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://dva8sjm4n5od2"]
 
-[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/GravityTest.gdshader" id="1_heklc"]
+[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/checkerboard.gdshader" id="1_heklc"]
 
 
 [resource]
