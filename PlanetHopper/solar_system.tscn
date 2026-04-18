@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqugvys2qgoa3"]
+
+[ext_resource type="Script" uid="uid://bt1vcskb3u2v2" path="res://solar_system.gd" id="1_auk15"]
+[ext_resource type="PackedScene" uid="uid://du50gcmxbaemq" path="res://player.tscn" id="2_ms4l2"]
+[ext_resource type="Script" uid="uid://bsv7ech4dxba7" path="res://camera_3d.gd" id="3_tfb7d"]
+[ext_resource type="PackedScene" uid="uid://b4xx0hlhs51by" path="res://planet.tscn" id="4_swmsm"]
+
+[sub_resource type="Environment" id="Environment_ms4l2"]
+background_mode = 1
+background_color = Color(0.0392157, 0.0392157, 0.101961, 1)
+ambient_light_color = Color(0.136623, 0.372036, 0.999999, 1)
+ambient_light_energy = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_hp4wh"]
+radius = 1.5
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swmsm"]
+emission_enabled = true
+emission = Color(1, 1, 0.835294, 1)
+
+[node name="SolarSystem" type="Node3D"]
+script = ExtResource("1_auk15")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ms4l2")
+
+[node name="Star" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_hp4wh")
+surface_material_override/0 = SubResource("StandardMaterial3D_swmsm")
+
+[node name="StarLight" type="OmniLight3D" parent="Star"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+light_color = Color(1, 1, 0.835294, 1)
+light_energy = 3.0
+shadow_enabled = true
+omni_range = 40.0
+
+[node name="Player" parent="." instance=ExtResource("2_ms4l2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
+script = ExtResource("3_tfb7d")
+zoom_distance = 8.0
+
+[node name="PlanetA" parent="." instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+biome = 1
+
+[node name="PlanetB" parent="." instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+radius = 1.4
+
+[node name="PlanetC" parent="." instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.277, 0, 0)
+radius = 2.0
+biome = 3
