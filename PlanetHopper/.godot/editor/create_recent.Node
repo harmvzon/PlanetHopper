@@ -1,4 +1,5 @@
 CollisionShape3D
 Area3D
+MeshInstance3D
 AnimatableBody3D
 Camera3D

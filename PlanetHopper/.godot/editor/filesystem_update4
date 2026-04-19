@@ -1,8 +1,7 @@
 res://mat/checkerboard.gdshader
-res://tut/planet.gdshader
-res://tut/PlanetMaterial.tres
-res://scenes/planet.tscn
 res://scripts/planet.gd
+res://scenes/planet.tscn
+res://mat/planet.tres
 res://scenes/solar_system.tscn
-res://tut/PlanetMeshFace.gd
-res://tut/planet.tscn
+res://mat/planet.gdshader
+res://mat/planet_noise.gdshader

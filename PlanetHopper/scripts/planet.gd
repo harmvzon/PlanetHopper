@@ -5,22 +5,12 @@ extends AnimatableBody3D
 signal resources_mined_changed(value: float)
 signal planet_depleted()
 
+# ── Enums ──────────────────────────────────────────────────────────────────
+enum Biome { LUSH, ARID, LAVA, ICE, METAL, GAS }
+
 # ── Exports ────────────────────────────────────────────────────────────────
-@export var planet_data: PlanetData:
-	set(val):
-		planet_data = val
-		if is_inside_tree():
-			_rebuild_mesh()
-
-@export var radius: float = 10.0:
-	set(val):
-		radius = val
-		if planet_data:
-			planet_data.radius = val
-		if is_inside_tree():
-			_setup_area()
-			_rebuild_mesh()
-
+@export var radius: float = 1.0 : set = _set_radius
+@export var biome: Biome = Biome.LUSH : set = _set_biome
 @export var orbit_speed_override: float = 0.0
 
 @export var resources_mined: float = 0.0:
@@ -35,43 +25,37 @@ signal planet_depleted()
 const AREA_RADIUS_MULTIPLIER: float = 1.5
 const GRAVITY_PER_RADIUS: float = 10.0
 const BASE_ORBIT_SPEED: float = 1.2
-const MINE_STEP: float = 0.02  # 50 hits to fully deplete
+const MINE_STEP: float = 0.02
 
-# Face normals — one per cube face projected onto sphere
-const FACE_NORMALS: Array = [
-	Vector3(0, 1, 0),
-	Vector3(0, -1, 0),
-	Vector3(1, 0, 0),
-	Vector3(-1, 0, 0),
-	Vector3(0, 0, 1),
-	Vector3(0, 0, -1),
-]
+const BIOME_COLORS: Dictionary = {
+	Biome.LUSH:  {"a": Color(0.1, 0.5, 0.2), "b": Color(0.3, 0.8, 0.4), "c": Color(0.5, 1.0, 0.6)},
+	Biome.ARID:  {"a": Color(0.6, 0.5, 0.2), "b": Color(0.8, 0.7, 0.3), "c": Color(1.0, 0.9, 0.5)},
+	Biome.LAVA:  {"a": Color(0.5, 0.1, 0.0), "b": Color(0.9, 0.2, 0.1), "c": Color(1.0, 0.5, 0.0)},
+	Biome.ICE:   {"a": Color(0.3, 0.7, 1.0), "b": Color(0.6, 0.85, 1.0), "c": Color(1.0, 1.0, 1.0)},
+	Biome.METAL: {"a": Color(0.3, 0.35, 0.4), "b": Color(0.5, 0.55, 0.6), "c": Color(0.7, 0.75, 0.8)},
+	Biome.GAS:   {"a": Color(0.4, 0.3, 0.5), "b": Color(0.7, 0.5, 0.9), "c": Color(0.9, 0.7, 1.0)},
+}
 
 # ── Internal ───────────────────────────────────────────────────────────────
 var orbit_radius: float = 0.0
 var orbit_speed: float = 0.0
 var angle: float = 0.0
 var surface_velocity: Vector3 = Vector3.ZERO
+var _mining_activity: float = 0.0
 
 # ── Node refs ──────────────────────────────────────────────────────────────
+@onready var _mesh: MeshInstance3D = $MeshInstance3D
 @onready var _col_shape: CollisionShape3D = $CollisionShape3D
 @onready var _area: Area3D = $Area3D
 @onready var _area_shape: CollisionShape3D = $Area3D/CollisionShape3D
-@onready var _faces: Node3D = $Faces
 
 
 # ── Lifecycle ──────────────────────────────────────────────────────────────
 
 func _ready() -> void:
-	_setup_area()
-	
-	if planet_data:
-		planet_data.changed.connect(_rebuild_mesh)
-		print("planet_data.changed connected")
-		_rebuild_mesh()
-	else:
-		print("no planet_data assigned")
-		
+	_apply_radius(radius)
+	_apply_biome(biome)
+
 	if Engine.is_editor_hint():
 		return
 
@@ -83,13 +67,13 @@ func _ready() -> void:
 	else:
 		orbit_speed = BASE_ORBIT_SPEED / sqrt(max(orbit_radius, 0.1))
 
-	if planet_data:
-		_rebuild_mesh()
-
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
+
+	# Decay mining activity over time
+	_mining_activity = max(_mining_activity - delta * 3.0, 0.0)
 
 	angle += orbit_speed * delta
 	var new_pos := Vector3(
@@ -101,88 +85,97 @@ func _physics_process(delta: float) -> void:
 	global_position = new_pos
 
 
-# ── Setup ──────────────────────────────────────────────────────────────────
+# ── Setters ────────────────────────────────────────────────────────────────
 
-func _setup_area() -> void:
+func _set_radius(value: float) -> void:
+	radius = value
+	if is_inside_tree():
+		_apply_radius(radius)
+
+
+func _set_biome(value: Biome) -> void:
+	print("Setting biome to: ", Biome.keys()[value])
+	biome = value
+	if is_inside_tree():
+		_apply_biome(biome)
+
+
+# ── Apply helpers ──────────────────────────────────────────────────────────
+
+func _apply_radius(r: float) -> void:
+	if _mesh == null:
+		return
+
+	var sphere_mesh := SphereMesh.new()
+	sphere_mesh.radius = r
+	sphere_mesh.height = r * 2.0
+	_mesh.mesh = sphere_mesh
+
+	var sphere_col := SphereShape3D.new()
+	sphere_col.radius = r
+	_col_shape.shape = sphere_col
+
 	var area_col := SphereShape3D.new()
-	area_col.radius = radius * AREA_RADIUS_MULTIPLIER
+	area_col.radius = r * AREA_RADIUS_MULTIPLIER
 	_area_shape.shape = area_col
-	_area.gravity = radius * GRAVITY_PER_RADIUS
+
+	_area.gravity = r * GRAVITY_PER_RADIUS
 
 
-# ── Mesh ───────────────────────────────────────────────────────────────────
-
-var _rebuild_pending: bool = false
-
-func _rebuild_mesh() -> void:
-	if planet_data == null or _faces == null:
-		print("rebuild blocked: planet_data=", planet_data, " faces=", _faces)
-		return
-	if _rebuild_pending:
-		print("rebuild blocked: pending")
-		return
-	_rebuild_pending = true
-	print("rebuild started, radius=", radius, " face count=", _faces.get_child_count())
-
-	planet_data.radius = radius
-
-	for i in FACE_NORMALS.size():
-		var face := _faces.get_child(i) as PlanetMeshFace
-		if face:
-			print("regenerating face ", i)
-			face.normal = FACE_NORMALS[i]
-			face.regenerate_mesh(planet_data)
-
-	call_deferred("_deferred_collision_rebuild")
-
-func _finish_rebuild() -> void:
-	_rebuild_collision()
-	_rebuild_pending = false
-	print("rebuild finished")
-
-func _rebuild_collision() -> void:
-	# Combine all face meshes into one ConcavePolygonShape3D
-	var vertices := PackedVector3Array()
-
-	for child in _faces.get_children():
-		var face := child as MeshInstance3D
-		if face == null or face.mesh == null:
-			continue
-		var mesh_arrays := face.mesh.surface_get_arrays(0)
-		var face_verts: PackedVector3Array = mesh_arrays[Mesh.ARRAY_VERTEX]
-		var face_indices: PackedInt32Array = mesh_arrays[Mesh.ARRAY_INDEX]
-		for idx in face_indices:
-			vertices.append(face_verts[idx])
-
-	if vertices.size() == 0:
+func _apply_biome(b: Biome) -> void:
+	if _mesh == null or _mesh.mesh == null:
+		print("_apply_biome blocked: mesh is null")
 		return
 
-	var shape := ConcavePolygonShape3D.new()
-	shape.set_faces(vertices)
-	_col_shape.shape = shape
+	var colors = BIOME_COLORS[b]
+	print("Applying biome: ", Biome.keys()[b], " colors: ", colors)
+	
+	var shader := load("res://mat/planet_noise.gdshader") as Shader
+	var mat := ShaderMaterial.new()
+	mat.shader = shader
 
+	mat.set_shader_parameter("colorA", colors["a"])
+	mat.set_shader_parameter("colorB", colors["b"])
+	mat.set_shader_parameter("colorC", colors["c"])
+	mat.set_shader_parameter("speed", 0.0)
+	mat.set_shader_parameter("degradation", 0.0)
 
-# ── Degradation ────────────────────────────────────────────────────────────
+	_mesh.set_surface_override_material(0, mat)
+	print("Material applied to mesh")
+
 
 func _apply_degradation(t: float) -> void:
-	for child in _faces.get_children():
-		var face := child as MeshInstance3D
-		if face and face.material_override:
-			face.material_override.set_shader_parameter("degradation", t)
+	if _mesh == null or _mesh.material_override == null:
+		return
+	
+	var current_mat := _mesh.material_override as ShaderMaterial
+	
+	# Speed driven by mining activity
+	var speed := _mining_activity * (1.0 - t * 0.5)
+	current_mat.set_shader_parameter("speed", speed)
+	
+	# Degradation lerps to gray
+	current_mat.set_shader_parameter("degradation", t)
 
 
 # ── Mining ─────────────────────────────────────────────────────────────────
 
 func get_biome_resource() -> int:
-	# Biome is now driven by PlanetData gradient + noise
-	# For now return RAW_ORE as default
-	# TODO: assign biome type as an export once art direction is clearer
-	return Inventory.Item.RAW_ORE
+	match biome:
+		Biome.LUSH:  return Inventory.Item.BIOMASS
+		Biome.LAVA:  return Inventory.Item.PYRESTONE
+		Biome.ICE:   return Inventory.Item.CRYSITE
+		Biome.METAL: return Inventory.Item.FERRITE
+		Biome.ARID:  return Inventory.Item.RAW_ORE
+		Biome.GAS:   return Inventory.Item.RAW_ORE
+		_:           return Inventory.Item.RAW_ORE
 
 
 func mine_hit() -> void:
 	if resources_mined >= 1.0:
 		return
+
+	_mining_activity = 1.0
 
 	print("mine_hit called, resources_mined before: ", resources_mined)
 	resources_mined += MINE_STEP
