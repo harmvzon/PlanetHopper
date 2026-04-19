@@ -36,6 +36,12 @@ const BIOME_COLORS: Dictionary = {
 	Biome.GAS:   {"a": Color(0.4, 0.3, 0.5), "b": Color(0.7, 0.5, 0.9), "c": Color(0.9, 0.7, 1.0)},
 }
 
+# ── Wave Spawning ──────────────────────────────────────────────────────────
+var _tiers_available: int = 0
+var _current_tier: int = -1  # -1 = no tier yet
+var _player_on_planet: bool = false
+var _active_enemies: Array[Node] = []
+
 # ── Internal ───────────────────────────────────────────────────────────────
 var orbit_radius: float = 0.0
 var orbit_speed: float = 0.0
@@ -55,6 +61,7 @@ var _mining_activity: float = 0.0
 func _ready() -> void:
 	_apply_radius(radius)
 	_apply_biome(biome)
+	_tiers_available = max(1, int(radius / 2.0))
 
 	if Engine.is_editor_hint():
 		return
@@ -66,6 +73,10 @@ func _ready() -> void:
 		orbit_speed = orbit_speed_override
 	else:
 		orbit_speed = BASE_ORBIT_SPEED / sqrt(max(orbit_radius, 0.1))
+
+	# Connect Area3D signals
+	_area.body_entered.connect(_on_player_entered_area)
+	_area.body_exited.connect(_on_player_exited_area)
 
 
 func _physics_process(delta: float) -> void:
@@ -83,6 +94,10 @@ func _physics_process(delta: float) -> void:
 	)
 	surface_velocity = (new_pos - global_position) / delta
 	global_position = new_pos
+	
+	# Wave tier update
+	if _player_on_planet:
+		_update_wave_tier()
 
 
 # ── Setters ────────────────────────────────────────────────────────────────
@@ -124,11 +139,9 @@ func _apply_radius(r: float) -> void:
 
 func _apply_biome(b: Biome) -> void:
 	if _mesh == null or _mesh.mesh == null:
-		print("_apply_biome blocked: mesh is null")
 		return
 
 	var colors = BIOME_COLORS[b]
-	print("Applying biome: ", Biome.keys()[b], " colors: ", colors)
 	
 	var shader := load("res://mat/planet_noise.gdshader") as Shader
 	var mat := ShaderMaterial.new()
@@ -140,8 +153,7 @@ func _apply_biome(b: Biome) -> void:
 	mat.set_shader_parameter("speed", 0.0)
 	mat.set_shader_parameter("degradation", 0.0)
 
-	_mesh.set_surface_override_material(0, mat)
-	print("Material applied to mesh")
+	_mesh.material_override = mat  # ← use node-level property, not surface
 
 
 func _apply_degradation(t: float) -> void:
@@ -149,6 +161,7 @@ func _apply_degradation(t: float) -> void:
 		return
 	
 	var current_mat := _mesh.material_override as ShaderMaterial
+	print("Applying degradation: ", t)
 	
 	# Speed driven by mining activity
 	var speed := _mining_activity * (1.0 - t * 0.5)
@@ -156,6 +169,7 @@ func _apply_degradation(t: float) -> void:
 	
 	# Degradation lerps to gray
 	current_mat.set_shader_parameter("degradation", t)
+	print("Degradation parameter set to: ", t)
 
 
 # ── Mining ─────────────────────────────────────────────────────────────────
@@ -186,3 +200,71 @@ func mine_hit() -> void:
 
 	if randf() < 0.05:
 		Inventory.add_star_energy(1)
+		
+# ── Wave System ────────────────────────────────────────────────────────────
+
+func _on_player_entered_area(body: Node3D) -> void:
+	if body is RigidBody3D and body.name == "Player":
+		_player_on_planet = true
+
+
+func _on_player_exited_area(body: Node3D) -> void:
+	if body is RigidBody3D and body.name == "Player":
+		_player_on_planet = false
+		_despawn_all_enemies()
+
+
+func _update_wave_tier() -> void:
+	if resources_mined >= 1.0:
+		return  # Planet dead
+	
+	# Calculate tier: 0 to (tiers_available - 1)
+	var new_tier: int = min(int(resources_mined * _tiers_available), _tiers_available - 1)
+	
+	if new_tier > _current_tier:
+		_current_tier = new_tier
+		print("Wave tier upgraded to: ", _current_tier)
+		_spawn_wave()
+
+
+func _spawn_wave() -> void:
+	# Remove dead enemies first
+	_active_enemies = _active_enemies.filter(func(e): return is_instance_valid(e))
+	
+	var enemy_count := 3 * (_current_tier + 1)
+	print("Spawning ", enemy_count, " enemies for tier ", _current_tier)
+	
+	for i in range(enemy_count):
+		_spawn_enemy()
+
+
+func _spawn_enemy() -> void:
+	var enemy := MeshInstance3D.new()
+	var sphere_mesh := SphereMesh.new()
+	sphere_mesh.radius = 0.5
+	sphere_mesh.height = 1.0
+	enemy.mesh = sphere_mesh
+	
+	# Add to tree FIRST
+	add_child(enemy)
+	
+	# Then set position
+	var angle_h := randf() * TAU
+	var angle_v := randf() * PI
+	var surf_pos := Vector3(
+		sin(angle_v) * cos(angle_h),
+		sin(angle_v) * sin(angle_h),
+		cos(angle_v)
+	) * radius * 1.1
+	
+	enemy.global_position = global_position + surf_pos
+	_active_enemies.append(enemy)
+
+
+func _despawn_all_enemies() -> void:
+	for enemy in _active_enemies:
+		if is_instance_valid(enemy):
+			enemy.queue_free()
+	_active_enemies.clear()
+	_current_tier = -1
+	print("All enemies despawned")

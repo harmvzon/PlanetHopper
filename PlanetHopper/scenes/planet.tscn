@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://es7fcvqjfahd"]
 
 [ext_resource type="Script" uid="uid://e7fua7s232ql" path="res://scripts/planet.gd" id="1_mtr83"]
-[ext_resource type="Material" uid="uid://cclxk76bobb3e" path="res://mat/planet.tres" id="2_h8ms6"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_h8ms6"]
 
@@ -13,7 +12,6 @@
 script = ExtResource("1_mtr83")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=212031120]
-material_override = ExtResource("2_h8ms6")
 mesh = SubResource("SphereMesh_h8ms6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1381041318]
