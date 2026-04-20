@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://db36gyranf21t"]
+
+[ext_resource type="Script" uid="uid://sxwui76d00q1" path="res://scripts/pixelation_layer.gd" id="1_hqsej"]
+[ext_resource type="Material" uid="uid://dncxgt3cc4woe" path="res://mat/pixelation_mat.tres" id="2_d078r"]
+
+[node name="PixelationLayer" type="CanvasLayer" unique_id=1306912910]
+layer = 10
+script = ExtResource("1_hqsej")
+
+[node name="PixelationRect" type="ColorRect" parent="." unique_id=979947321]
+material = ExtResource("2_d078r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

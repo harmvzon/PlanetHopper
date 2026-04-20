@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bt1vcskb3u2v2" path="res://scripts/solar_system.gd" id="1_auk15"]
 [ext_resource type="PackedScene" uid="uid://du50gcmxbaemq" path="res://scenes/player.tscn" id="2_ms4l2"]
+[ext_resource type="PackedScene" uid="uid://db36gyranf21t" path="res://scenes/pixelation_layer.tscn" id="2_sjaf3"]
 [ext_resource type="Script" uid="uid://bsv7ech4dxba7" path="res://scripts/camera_3d.gd" id="3_tfb7d"]
 [ext_resource type="PackedScene" uid="uid://es7fcvqjfahd" path="res://scenes/planet.tscn" id="4_swmsm"]
+[ext_resource type="PackedScene" uid="uid://dh83g101486u2" path="res://scenes/edge_detection_layer.tscn" id="6_2yas3"]
 
 [sub_resource type="Environment" id="Environment_ms4l2"]
 background_mode = 1
@@ -22,6 +24,12 @@ emission = Color(1, 1, 0.835294, 1)
 
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
 script = ExtResource("1_auk15")
+
+[node name="CanvasLayer" parent="." unique_id=1306912910 instance=ExtResource("2_sjaf3")]
+visible = false
+
+[node name="EdgeDetectionLayer" parent="." unique_id=1147762664 instance=ExtResource("6_2yas3")]
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=799327498]
 environment = SubResource("Environment_ms4l2")
