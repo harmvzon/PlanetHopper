@@ -1,6 +1,5 @@
-@tool
+#@tool
 extends Camera3D
-
 
 @export var post_processing := true:
 	set(p):
@@ -13,8 +12,7 @@ extends Camera3D
 		else:
 			$Postprocess.hide()
 			post_processing = p
-
-
+			
 @export var follow_speed: float = 15.0
 @export var zoom_grounded: float = 20.0
 @export var zoom_space: float = 120.0

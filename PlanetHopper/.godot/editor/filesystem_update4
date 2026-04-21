@@ -13,3 +13,8 @@ res://mat/edge_detection.gdshader
 res://mat/planet.tres
 res://scenes/camera.tscn
 res://scripts/camera_3d.gd
+res://mat/pixelart_stylizer.gdshader
+res://scripts/camera_test.gd
+res://scenes/demo.tscn
+res://scenes/planet.tscn
+res://mat/Toon_material_3d.tres

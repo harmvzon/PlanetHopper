@@ -5,14 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://db36gyranf21t" path="res://scenes/pixelation_layer.tscn" id="2_sjaf3"]
 [ext_resource type="Script" uid="uid://bsv7ech4dxba7" path="res://scripts/camera_3d.gd" id="3_tfb7d"]
 [ext_resource type="PackedScene" uid="uid://es7fcvqjfahd" path="res://scenes/planet.tscn" id="4_swmsm"]
-[ext_resource type="PackedScene" uid="uid://dh83g101486u2" path="res://scenes/edge_detection_layer.tscn" id="6_2yas3"]
-
-[sub_resource type="Environment" id="Environment_ms4l2"]
-background_mode = 1
-background_color = Color(0.0392157, 0.0392157, 0.101961, 1)
-background_energy_multiplier = 2.85
-ambient_light_color = Color(0.136623, 0.372036, 0.999999, 1)
-ambient_light_energy = 0.2
+[ext_resource type="Shader" uid="uid://dkq2b3w0k50us" path="res://mat/pixelart_stylizer.gdshader" id="6_2yas3"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_hp4wh"]
 radius = 20.0
@@ -22,17 +15,36 @@ height = 40.0
 emission_enabled = true
 emission = Color(1, 1, 0.835294, 1)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_86ma8"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjurn"]
+render_priority = 0
+shader = ExtResource("6_2yas3")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/is_perspective_camera = true
+
+[sub_resource type="Environment" id="Environment_2yas3"]
+background_mode = 1
+background_color = Color(0.047217272, 0.1372557, 0.20969445, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.607843, 0.756863, 0.92549, 1)
+ambient_light_sky_contribution = 0.17
+tonemap_mode = 2
+sdfgi_min_cell_size = 0.4
+volumetric_fog_density = 0.1026
+volumetric_fog_emission = Color(0.941176, 0.470588, 0.337255, 1)
+adjustment_saturation = 0.01
+
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
 script = ExtResource("1_auk15")
 
 [node name="CanvasLayer" parent="." unique_id=1306912910 instance=ExtResource("2_sjaf3")]
-visible = false
-
-[node name="EdgeDetectionLayer" parent="." unique_id=1147762664 instance=ExtResource("6_2yas3")]
-visible = false
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=799327498]
-environment = SubResource("Environment_ms4l2")
 
 [node name="Star" type="MeshInstance3D" parent="." unique_id=27751430]
 mesh = SubResource("SphereMesh_hp4wh")
@@ -50,13 +62,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.86067, 7.2026367, 0)
 jump_force = 50.0
 thrust_force = 20.0
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1964957377]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
-script = ExtResource("3_tfb7d")
-zoom_grounded = 5.0
-zoom_space = 50.0
-zoom_speed = 5.0
-
 [node name="PlanetA" parent="." unique_id=210936528 instance=ExtResource("4_swmsm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.87549, 0, 0)
 radius = 5.0
@@ -70,3 +75,17 @@ biome = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.55815, 0, 0)
 radius = 5.0
 biome = 3
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=265360804]
+script = ExtResource("3_tfb7d")
+zoom_grounded = 5.0
+zoom_space = 50.0
+zoom_speed = 2.0
+
+[node name="Postprocess" type="MeshInstance3D" parent="Camera3D" unique_id=1989138725]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.873369)
+mesh = SubResource("PlaneMesh_86ma8")
+surface_material_override/0 = SubResource("ShaderMaterial_yjurn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1367043850]
+environment = SubResource("Environment_2yas3")
