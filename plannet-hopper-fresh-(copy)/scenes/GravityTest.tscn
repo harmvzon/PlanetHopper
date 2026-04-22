@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://r22x5m80hsfy"]
+
+[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/checkerboard.gdshader" id="1_dep8n"]
+[ext_resource type="Script" path="res://scripts/ball.gd" id="2_f7hd6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ekfhq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljhfc"]
+render_priority = 0
+shader = ExtResource("1_dep8n")
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/scale = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_v2li8"]
+material = SubResource("ShaderMaterial_ljhfc")
+radius = 3.0
+height = 6.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ekfhq"]
+radius = 3.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v2li8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y588w"]
+render_priority = 0
+shader = ExtResource("1_dep8n")
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/scale = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_y588w"]
+material = SubResource("ShaderMaterial_y588w")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ljhfc"]
+radius = 0.2
+
+[sub_resource type="Sky" id="Sky_ekfhq"]
+
+[sub_resource type="Environment" id="Environment_ekfhq"]
+sky = SubResource("Sky_ekfhq")
+ambient_light_color = Color(0.0295066, 0.0295066, 0.0295066, 1)
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_v2li8"]
+
+[sub_resource type="Compositor" id="Compositor_y588w"]
+
+[node name="GravityTest" type="Node3D" unique_id=2051846486]
+
+[node name="Planet" type="StaticBody3D" parent="." unique_id=1711505863]
+physics_material_override = SubResource("PhysicsMaterial_ekfhq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet" unique_id=339341346]
+mesh = SubResource("SphereMesh_v2li8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet" unique_id=1615914358]
+shape = SubResource("SphereShape3D_ekfhq")
+
+[node name="Ball" type="RigidBody3D" parent="." unique_id=377211303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_v2li8")
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("2_f7hd6")
+move_strength = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=387199238]
+mesh = SubResource("SphereMesh_y588w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=283070314]
+shape = SubResource("SphereShape3D_ljhfc")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=747857751]
+transform = Transform3D(0.595636, 0, 0.803254, 0, 1, 0, -0.803254, 0, 0.595636, 7.70995, 0, 4.48027)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1041936503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.50232, 4.37891, 2.34351)
+light_energy = 1.61
+omni_range = 14.5767
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1579778541]
+environment = SubResource("Environment_ekfhq")
+camera_attributes = SubResource("CameraAttributesPhysical_v2li8")
+compositor = SubResource("Compositor_y588w")

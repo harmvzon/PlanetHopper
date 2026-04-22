@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dh83g101486u2"]
+
+[ext_resource type="Script" uid="uid://b4khx00v0y2rn" path="res://scripts/edge_detection_layer.gd" id="1_ebv8n"]
+[ext_resource type="Shader" uid="uid://8qw1nkbemm5l" path="res://mat/edge_detection.gdshader" id="2_kn5ub"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snt1n"]
+render_priority = 0
+shader = ExtResource("2_kn5ub")
+shader_parameter/opacity = 1.0
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.3999999910592
+shader_parameter/highlight_strength = 0.0999999977648
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4so2a"]
+size = Vector2(2, 2)
+
+[node name="EdgeDetectionLayer" type="Node3D" unique_id=1147762664]
+script = ExtResource("1_ebv8n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=821959488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = SubResource("ShaderMaterial_snt1n")
+mesh = SubResource("QuadMesh_4so2a")

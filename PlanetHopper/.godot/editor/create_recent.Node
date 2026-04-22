@@ -1,7 +1,12 @@
+WorldEnvironment
+SubViewport
+SubViewportContainer
 MeshInstance3D
+CanvasLayer
+OmniLight3D
+SpotLight3D
 Camera3D
 ColorRect
-CanvasLayer
 CollisionShape3D
 Area3D
 AnimatableBody3D

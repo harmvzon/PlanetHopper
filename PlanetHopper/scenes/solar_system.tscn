@@ -2,90 +2,116 @@
 
 [ext_resource type="Script" uid="uid://bt1vcskb3u2v2" path="res://scripts/solar_system.gd" id="1_auk15"]
 [ext_resource type="PackedScene" uid="uid://du50gcmxbaemq" path="res://scenes/player.tscn" id="2_ms4l2"]
-[ext_resource type="PackedScene" uid="uid://db36gyranf21t" path="res://scenes/pixelation_layer.tscn" id="2_sjaf3"]
 [ext_resource type="Script" uid="uid://bsv7ech4dxba7" path="res://scripts/camera_3d.gd" id="3_tfb7d"]
 [ext_resource type="PackedScene" uid="uid://es7fcvqjfahd" path="res://scenes/planet.tscn" id="4_swmsm"]
-[ext_resource type="Shader" uid="uid://dkq2b3w0k50us" path="res://mat/pixelart_stylizer.gdshader" id="6_2yas3"]
+[ext_resource type="Shader" uid="uid://dfpcdnmr5u0pt" path="res://mat/PostProcessing.gdshader" id="5_2yas3"]
+
+[sub_resource type="Environment" id="Environment_sjaf3"]
+background_mode = 1
+background_color = Color(0.02566608, 0.025652712, 0.13557488, 1)
+ambient_light_energy = 0.58
 
 [sub_resource type="SphereMesh" id="SphereMesh_hp4wh"]
 radius = 20.0
 height = 40.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swmsm"]
-emission_enabled = true
-emission = Color(1, 1, 0.835294, 1)
+shading_mode = 0
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_86ma8"]
-size = Vector2(10, 10)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjurn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86ma8"]
 render_priority = 0
-shader = ExtResource("6_2yas3")
-shader_parameter/shadows_enabled = true
-shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.4
-shader_parameter/highlight_strength = 0.1
-shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
-shader_parameter/is_perspective_camera = true
+shader = ExtResource("5_2yas3")
+shader_parameter/depth_threshold = 0.4330000205675
+shader_parameter/reverse_depth_threshold = 0.3030000143925
+shader_parameter/normal_threshold = 0.3130000148675
+shader_parameter/darken_amount = 0.4499999899416
+shader_parameter/lighten_amount = 4.17999990656864
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(0, 0, 0)
 
-[sub_resource type="Environment" id="Environment_2yas3"]
-background_mode = 1
-background_color = Color(0.047217272, 0.1372557, 0.20969445, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.607843, 0.756863, 0.92549, 1)
-ambient_light_sky_contribution = 0.17
-tonemap_mode = 2
-sdfgi_min_cell_size = 0.4
-volumetric_fog_density = 0.1026
-volumetric_fog_emission = Color(0.941176, 0.470588, 0.337255, 1)
-adjustment_saturation = 0.01
+[sub_resource type="QuadMesh" id="QuadMesh_yjurn"]
+material = SubResource("ShaderMaterial_86ma8")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2yas3"]
+size = Vector3(5, 5, 5)
 
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
 script = ExtResource("1_auk15")
 
-[node name="CanvasLayer" parent="." unique_id=1306912910 instance=ExtResource("2_sjaf3")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=819481563]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
 
-[node name="Star" type="MeshInstance3D" parent="." unique_id=27751430]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1666878324]
+size = Vector2i(480, 270)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1434062347]
+environment = SubResource("Environment_sjaf3")
+
+[node name="Star" type="MeshInstance3D" parent="SubViewportContainer/SubViewport" unique_id=27751430]
+cast_shadow = 0
 mesh = SubResource("SphereMesh_hp4wh")
+skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_swmsm")
 
-[node name="StarLight" type="OmniLight3D" parent="Star" unique_id=1881410215]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.044952)
+[node name="StarLight" type="OmniLight3D" parent="SubViewportContainer/SubViewport/Star" unique_id=1881410215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22.790955)
 light_color = Color(1, 1, 0.835294, 1)
-light_energy = 3.0
+light_volumetric_fog_energy = 0.0
+light_specular = 1.164
 shadow_enabled = true
-omni_range = 123.0
+shadow_transmittance_bias = -3.784
+shadow_blur = 0.954
+omni_range = 137.989
+omni_attenuation = 0.1
 
-[node name="Player" parent="." unique_id=307141274 instance=ExtResource("2_ms4l2")]
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=307141274 instance=ExtResource("2_ms4l2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.86067, 7.2026367, 0)
 jump_force = 50.0
 thrust_force = 20.0
 
-[node name="PlanetA" parent="." unique_id=210936528 instance=ExtResource("4_swmsm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.87549, 0, 0)
+[node name="PlanetA" parent="SubViewportContainer/SubViewport" unique_id=210936528 instance=ExtResource("4_swmsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.87549, -0.015781403, 0)
 radius = 5.0
 
-[node name="PlanetB" parent="." unique_id=1782423007 instance=ExtResource("4_swmsm")]
+[node name="PlanetB" parent="SubViewportContainer/SubViewport" unique_id=1782423007 instance=ExtResource("4_swmsm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.37821, 0, 0)
 radius = 9.0
 biome = 2
 
-[node name="PlanetC" parent="." unique_id=1036486983 instance=ExtResource("4_swmsm")]
+[node name="PlanetC" parent="SubViewportContainer/SubViewport" unique_id=1036486983 instance=ExtResource("4_swmsm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 109.55815, 0, 0)
 radius = 5.0
 biome = 3
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=265360804]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=265360804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44.017582)
+near = 0.001
 script = ExtResource("3_tfb7d")
 zoom_grounded = 5.0
 zoom_space = 50.0
 zoom_speed = 2.0
 
-[node name="Postprocess" type="MeshInstance3D" parent="Camera3D" unique_id=1989138725]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.873369)
-mesh = SubResource("PlaneMesh_86ma8")
-surface_material_override/0 = SubResource("ShaderMaterial_yjurn")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=1419982504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44.017582)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_yjurn")
+skeleton = NodePath("../../../..")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1367043850]
-environment = SubResource("Environment_2yas3")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport" unique_id=64929193]
+transform = Transform3D(0.99607974, 0.088459685, 0, -0.088459685, 0.99607974, 0, 0, 0, 1, 35.36281, 0, -12.965986)
+mesh = SubResource("BoxMesh_2yas3")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport" unique_id=2129375560]
+transform = Transform3D(0.99607974, 0.088459685, 0, -0.088459685, 0.99607974, 0, 0, 0, 1, 33.929745, 4.196063, -10.09727)
+mesh = SubResource("BoxMesh_2yas3")
+skeleton = NodePath("")
