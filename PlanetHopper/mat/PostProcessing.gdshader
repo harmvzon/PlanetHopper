@@ -15,6 +15,8 @@ uniform float lighten_amount : hint_range(0, 10, 0.01) = 1.5;
 uniform vec3 normal_edge_bias = vec3(1, 1, 1);
 uniform vec3 light_direction = vec3(0.0, 0.0, 0.0);
 
+uniform int posterize_levels : hint_range(2, 256) = 16;
+
 float get_depth(vec2 screen_uv, mat4 inv_projection_matrix) {
 	float depth = texture(depth_texture, screen_uv).r;
 	vec3 ndc = vec3(screen_uv * 2.0 - 1.0, depth);
@@ -86,5 +88,7 @@ void fragment() {
 	vec3 normal_col = original * (ld > 0.0 ? darken_amount : lighten_amount);
 	vec3 edge_mix = mix(normal_col, depth_col, depth_edge);
 	
-	ALBEDO = mix(original, edge_mix, (depth_edge > 0.0 ? depth_edge : normal_edge));
+	vec3 final = mix(original, edge_mix, (depth_edge > 0.0 ? depth_edge : normal_edge));
+	
+	ALBEDO = round(final * (float(posterize_levels) - 1.0)) / (float(posterize_levels) - 1.0);
 }

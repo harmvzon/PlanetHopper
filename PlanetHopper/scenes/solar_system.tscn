@@ -23,6 +23,7 @@ shader_parameter/darken_amount = 0.3
 shader_parameter/lighten_amount = 1.5
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(0, 0, 0)
+shader_parameter/posterize_levels = 16
 
 [sub_resource type="QuadMesh" id="QuadMesh_yjurn"]
 material = SubResource("ShaderMaterial_86ma8")
@@ -35,6 +36,7 @@ size = Vector3(5, 5, 5)
 [sub_resource type="Environment" id="Environment_sjaf3"]
 background_mode = 1
 background_color = Color(0.02566608, 0.025652712, 0.13557488, 1)
+ambient_light_color = Color(0.08579869, 0.09196686, 0.31311297, 1)
 ambient_light_energy = 0.58
 
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
