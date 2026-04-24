@@ -24,7 +24,7 @@ float get_depth(vec2 screen_uv, mat4 inv_projection_matrix) {
 }
 
 void vertex() {
-	POSITION = vec4(VERTEX, 1.0);
+	POSITION = vec4(VERTEX.xy, 1.0,1.0);
 }
 
 void fragment() {

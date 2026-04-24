@@ -8,6 +8,7 @@ uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest
 uniform float lineAlpha = 0.7;
 uniform float lineHighlight = 0.2;
 uniform float lineShadow = 0.55;
+uniform float lineWidth : hint_range(0.0, 5.0) = 1.0;
 
 varying vec2 screenUV;
 varying float lineMask;
@@ -45,13 +46,13 @@ void fragment() {
 	vec2 texelSize = 1.0 / VIEWPORT_SIZE.xy;
 	screenUV = SCREEN_UV;
 	
-
+	float W = lineWidth;
 	// UV offsets
 	vec2 UVOffsets[4];
-	UVOffsets[0] = SCREEN_UV + vec2(0.0, -1.0) * texelSize;
-	UVOffsets[1] = SCREEN_UV + vec2(0.0, 1.0) * texelSize;
-	UVOffsets[2] = SCREEN_UV + vec2(1.0, 0.0) * texelSize;
-	UVOffsets[3] = SCREEN_UV + vec2(-1.0, 0.0) * texelSize;
+	UVOffsets[0] = SCREEN_UV + vec2(0.0, -W) * texelSize;
+	UVOffsets[1] = SCREEN_UV + vec2(0.0, W) * texelSize;
+	UVOffsets[2] = SCREEN_UV + vec2(W, 0.0) * texelSize;
+	UVOffsets[3] = SCREEN_UV + vec2(-W, 0.0) * texelSize;
 
 	// Using alpha channel (screen roughness) to mask objects to not receive outlines
 	float outlineMask = texture(NORMAL_TEXTURE, SCREEN_UV).a;
@@ -87,6 +88,6 @@ void fragment() {
 	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
 	lineMask = clamp(0.1, lineAlpha, (depthDifference + normalDifference * 5.0));
 	ALBEDO += clamp((normalDifference - depthDifference), 0.0, 1.0) * lineHighlight;
-	ALBEDO -= ALBEDO * depthDifference * lineShadow;
+	//ALBEDO -= ALBEDO * depthDifference * lineShadow;
 	
 }
