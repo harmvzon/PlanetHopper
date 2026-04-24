@@ -89,6 +89,5 @@ void fragment() {
 	vec3 edge_mix = mix(normal_col, depth_col, depth_edge);
 	
 	vec3 final = mix(original, edge_mix, (depth_edge > 0.0 ? depth_edge : normal_edge));
-	
 	ALBEDO = round(final * (float(posterize_levels) - 1.0)) / (float(posterize_levels) - 1.0);
 }

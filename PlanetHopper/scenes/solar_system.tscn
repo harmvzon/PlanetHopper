@@ -16,18 +16,19 @@ shading_mode = 0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86ma8"]
 render_priority = 0
 shader = ExtResource("5_2yas3")
-shader_parameter/depth_threshold = 0.05
-shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/depth_threshold = 0.1270000060325
+shader_parameter/reverse_depth_threshold = 0.16400000779
 shader_parameter/normal_threshold = 0.6
-shader_parameter/darken_amount = 0.3
+shader_parameter/darken_amount = 0.27999999374144
 shader_parameter/lighten_amount = 1.5
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(0, 0, 0)
-shader_parameter/posterize_levels = 16
+shader_parameter/posterize_levels = 32
 
 [sub_resource type="QuadMesh" id="QuadMesh_yjurn"]
 material = SubResource("ShaderMaterial_86ma8")
 flip_faces = true
+uv2_padding = 4.1
 size = Vector2(2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2yas3"]
@@ -35,9 +36,9 @@ size = Vector3(5, 5, 5)
 
 [sub_resource type="Environment" id="Environment_sjaf3"]
 background_mode = 1
-background_color = Color(0.02566608, 0.025652712, 0.13557488, 1)
-ambient_light_color = Color(0.08579869, 0.09196686, 0.31311297, 1)
-ambient_light_energy = 0.58
+background_color = Color(0.058501348, 0.058525734, 0.21360922, 1)
+ambient_light_color = Color(0.77178514, 0.8083233, 0.97968787, 1)
+ambient_light_energy = 2.4
 
 [node name="SolarSystem" type="Node3D" unique_id=900659707]
 script = ExtResource("1_auk15")
@@ -69,9 +70,7 @@ light_color = Color(1, 1, 0.835294, 1)
 light_volumetric_fog_energy = 0.0
 light_specular = 1.164
 shadow_enabled = true
-shadow_transmittance_bias = -3.784
-shadow_blur = 0.954
-omni_range = 137.989
+omni_range = 4096.0
 omni_attenuation = 0.1
 
 [node name="Player" parent="SubViewportContainer/SubViewport" unique_id=307141274 instance=ExtResource("2_ms4l2")]
