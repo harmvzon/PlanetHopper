@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://buuk3rpjhwbng"]
+
+[ext_resource type="Script" uid="uid://c3tq21cenjys7" path="res://scripts/stats.gd" id="1_imwls"]
+
+[node name="fpscounter" type="CanvasLayer" unique_id=515497715]
+script = ExtResource("1_imwls")
+
+[node name="Label" type="Label" parent="." unique_id=1129227255]
+offset_right = 40.0
+offset_bottom = 23.0

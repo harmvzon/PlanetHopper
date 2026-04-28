@@ -16,10 +16,10 @@ shading_mode = 0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86ma8"]
 render_priority = 0
 shader = ExtResource("5_2yas3")
-shader_parameter/depth_threshold = 0.1270000060325
-shader_parameter/reverse_depth_threshold = 0.16400000779
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
 shader_parameter/normal_threshold = 0.6
-shader_parameter/darken_amount = 0.27999999374144
+shader_parameter/darken_amount = 0.3
 shader_parameter/lighten_amount = 1.5
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(0, 0, 0)

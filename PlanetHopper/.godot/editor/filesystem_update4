@@ -2,3 +2,8 @@ res://scenes/solar_system.tscn
 res://mat/checkerboard.gdshader
 res://mat/planet_noise.gdshader
 res://mat/PostProcessing.gdshader
+res://scenes/Stats.tscn
+res://scripts/stats.gd
+res://scenes/robot.tscn
+res://scripts/HexapodWalker.gd
+res://scripts/LegController.gd
