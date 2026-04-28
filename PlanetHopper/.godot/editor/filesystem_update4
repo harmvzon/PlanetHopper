@@ -2,14 +2,3 @@ res://scenes/solar_system.tscn
 res://mat/checkerboard.gdshader
 res://mat/planet_noise.gdshader
 res://mat/PostProcessing.gdshader
-res://mat/pixelation.gdshader
-res://mat/edge_detection.gdshader
-res://mat/pixelart_stylizer.gdshader
-res://mat/artshaderv2.gdshader
-res://mat/artshader.gdshader
-res://mat/artshader_combined.gdshader
-res://mat/starfield.gdshader
-res://mat/sky.gdshader
-res://mat/stars.gdshader
-res://scenes/mattProcessing.gdshader
-res://scenes/artshader.tscn

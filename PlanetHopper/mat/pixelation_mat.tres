@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://dncxgt3cc4woe"]
-
-[ext_resource type="Shader" uid="uid://c1o1of0j28dy" path="res://mat/pixelation.gdshader" id="1_syjg7"]
-
-[resource]
-shader = ExtResource("1_syjg7")
-shader_parameter/pixel_size = 4.0
