@@ -1,51 +1,27 @@
 [gd_scene format=3 uid="uid://sgktcxnk3r6b"]
 
 [ext_resource type="PackedScene" uid="uid://d1gwl43y5t8q7" path="res://scenes/robot.tscn" id="1_g7g4h"]
-[ext_resource type="Script" uid="uid://boxdpy70cigce" path="res://scripts/steps.gd" id="2_j8ivh"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_a5oyu"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_j8ivh"]
 size = Vector2(100, 100)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g7g4h"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_nd71p"]
 size = Vector3(100, 0.1, 100)
 
 [node name="TestScene" type="Node3D" unique_id=311050066]
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1845877572]
-mesh = SubResource("PlaneMesh_a5oyu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.1124926, 0)
+mesh = SubResource("PlaneMesh_j8ivh")
 skeleton = NodePath("StaticBody3D")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=2012500993]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=599423183]
-shape = SubResource("BoxShape3D_g7g4h")
+shape = SubResource("BoxShape3D_nd71p")
 
 [node name="ROBOT" parent="." unique_id=173640208 instance=ExtResource("1_g7g4h")]
-move_speed = 1.0
-turn_speed = 10.0
-
-[node name="GOAL_L1" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="0" unique_id=1874657364]
-step_distance = 0.3
-
-[node name="GOAL_L2" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="1" unique_id=2131469613]
-step_distance = 0.3
-
-[node name="GOAL_L3" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="2" unique_id=1428102129]
-step_distance = 0.3
-
-[node name="GOAL_R1" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="3" unique_id=257972115]
-step_distance = 0.3
-
-[node name="GOAL_R2" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="4" unique_id=1272613147]
-step_distance = 0.3
-
-[node name="GOAL_R3" parent="ROBOT/GOALS" parent_id_path=PackedInt32Array(173640208, 1170439478) index="5" unique_id=986132935]
-step_distance = 0.3
-
-[node name="STEPS" parent="ROBOT" index="1" unique_id=1387779716]
-script = ExtResource("2_j8ivh")
+turn_speed = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=352400438]
 transform = Transform3D(1, 0, 0, 0, 0.7881397, 0.6154964, 0, -0.6154964, 0.7881397, 0, 2.653801, 3.46743)
-
-[editable path="ROBOT"]

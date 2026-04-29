@@ -5,8 +5,8 @@ extends Camera3D
 @export var zoom_grounded: float = 20.0
 @export var zoom_space: float = 120.0
 @export var zoom_speed: float = 3.0
+@export var target : Node3D 
 
-var target: Node3D
 var _current_zoom: float = 20.0
 var _not_grounded_timer: float = 0.0
 const ZOOM_OUT_DELAY: float = 0.3  # seconds before zoom triggers

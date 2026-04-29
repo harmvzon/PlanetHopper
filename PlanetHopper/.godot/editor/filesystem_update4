@@ -9,3 +9,4 @@ res://scenes/test_scene.tscn
 res://scripts/step_ray.gd
 res://scripts/goal.gd
 res://scripts/steps.gd
+res://scripts/camera_3d.gd

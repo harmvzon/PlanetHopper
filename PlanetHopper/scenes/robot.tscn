@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://gv8u32mn3ysv" path="res://scripts/robot.gd" id="1_i42o3"]
 [ext_resource type="Script" uid="uid://baqngss7oc46x" path="res://scripts/goal.gd" id="2_i42o3"]
 [ext_resource type="Script" uid="uid://c1tsu1b5qbmvl" path="res://scripts/step_ray.gd" id="2_ykvnc"]
+[ext_resource type="Script" uid="uid://boxdpy70cigce" path="res://scripts/steps.gd" id="3_rcrfe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i42o3"]
 albedo_color = Color(1, 0, 1, 1)
@@ -850,20 +851,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5iunx")
 
-[node name="ROBOT" type="Node3D" unique_id=173640208]
+[node name="ROBOT" type="Node3D" unique_id=173640208 node_paths=PackedStringArray("L1", "L2", "L3", "R1", "R2", "R3")]
 script = ExtResource("1_i42o3")
+L1 = NodePath("GOALS/GOAL_L1")
+L2 = NodePath("GOALS/GOAL_L2")
+L3 = NodePath("GOALS/GOAL_L3")
+R1 = NodePath("GOALS/GOAL_R1")
+R2 = NodePath("GOALS/GOAL_R2")
+R3 = NodePath("GOALS/GOAL_R3")
 
 [node name="GOALS" type="Node3D" parent="." unique_id=1170439478]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="GOAL_L1" type="Node3D" parent="GOALS" unique_id=1874657364 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_L1" type="Node3D" parent="GOALS" unique_id=1874657364 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.4309337, 0.1, -0.74639904)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/L1_Ray/STEP_L1")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L2")
-opposite_target = NodePath("../GOAL_R1")
+creature_root = NodePath("..")
 
 [node name="Pole_L1" type="Node3D" parent="GOALS/GOAL_L1" unique_id=1014942305]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -872,14 +878,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_L2" type="Node3D" parent="GOALS" unique_id=2131469613 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_L2" type="Node3D" parent="GOALS" unique_id=2131469613 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.86186737, 0.1, 3.767342e-08)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/L2_Ray/STEP_L2")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L3")
-opposite_target = NodePath("../GOAL_R2")
+leg_index = 1
+creature_root = NodePath("..")
 
 [node name="Pole_L2" type="Node3D" parent="GOALS/GOAL_L2" unique_id=495749664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -888,14 +894,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_L3" type="Node3D" parent="GOALS" unique_id=1428102129 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_L3" type="Node3D" parent="GOALS" unique_id=1428102129 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.43093365, 0.1, 0.74639904)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/L3_Ray/STEP_L3")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L1")
-opposite_target = NodePath("../GOAL_R3")
+leg_index = 2
+creature_root = NodePath("..")
 
 [node name="Pole_L3" type="Node3D" parent="GOALS/GOAL_L3" unique_id=1321958533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -904,14 +910,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R1" type="Node3D" parent="GOALS" unique_id=257972115 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_R1" type="Node3D" parent="GOALS" unique_id=257972115 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.43093365, 0.1, -0.74639904)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/R1_Ray/STEP_R1")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R2")
-opposite_target = NodePath("../GOAL_L1")
+leg_index = 3
+creature_root = NodePath("..")
 
 [node name="Pole_R1" type="Node3D" parent="GOALS/GOAL_R1" unique_id=1501405062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -920,14 +926,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R2" type="Node3D" parent="GOALS" unique_id=1272613147 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_R2" type="Node3D" parent="GOALS" unique_id=1272613147 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.86186737, 0.1, -3.767342e-08)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/R2_Ray/STEP_R2")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R3")
-opposite_target = NodePath("../GOAL_L2")
+leg_index = 4
+creature_root = NodePath("..")
 
 [node name="Pole_R2" type="Node3D" parent="GOALS/GOAL_R2" unique_id=1603168252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -936,14 +942,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R3" type="Node3D" parent="GOALS" unique_id=986132935 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+[node name="GOAL_R3" type="Node3D" parent="GOALS" unique_id=986132935 node_paths=PackedStringArray("step_target", "creature_root")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.4309337, 0.1, 0.74639904)
 top_level = true
 script = ExtResource("2_i42o3")
 step_target = NodePath("../../STEPS/R3_Ray/STEP_R3")
 step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R1")
-opposite_target = NodePath("../GOAL_L3")
+leg_index = 5
+creature_root = NodePath("..")
 
 [node name="Pole_R3" type="Node3D" parent="GOALS/GOAL_R3" unique_id=838311584]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -954,6 +960,7 @@ mesh = SubResource("TorusMesh_i42o3")
 
 [node name="STEPS" type="Node3D" parent="." unique_id=1387779716]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("3_rcrfe")
 
 [node name="L1_Ray" type="RayCast3D" parent="STEPS" unique_id=246327723 node_paths=PackedStringArray("step_target")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.43093365, 0.6, 0.7463991)
