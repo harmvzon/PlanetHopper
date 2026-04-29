@@ -1,9 +1,11 @@
-res://scenes/solar_system.tscn
-res://mat/checkerboard.gdshader
+res://scenes/robot.tscn
 res://mat/planet_noise.gdshader
 res://mat/PostProcessing.gdshader
-res://scenes/Stats.tscn
-res://scripts/stats.gd
-res://scenes/robot.tscn
-res://scripts/HexapodWalker.gd
+res://mat/checkerboard.gdshader
 res://scripts/LegController.gd
+res://scripts/HexapodWalker.gd
+res://scripts/robot.gd
+res://scenes/test_scene.tscn
+res://scripts/step_ray.gd
+res://scripts/goal.gd
+res://scripts/steps.gd

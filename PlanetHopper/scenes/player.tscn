@@ -1,24 +1,13 @@
 [gd_scene format=3 uid="uid://du50gcmxbaemq"]
 
 [ext_resource type="Script" uid="uid://c7c712xmfcjya" path="res://scripts/player.gd" id="1_onrkg"]
-[ext_resource type="Shader" uid="uid://dv5k1b4a5mcep" path="res://mat/checkerboard.gdshader" id="2_i3pqv"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_fcwkm"]
-radius = 0.2
-height = 0.6
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkgeh"]
-render_priority = 0
-shader = ExtResource("2_i3pqv")
-shader_parameter/color1 = Color(1, 0, 1, 1)
-shader_parameter/color2 = Color(0.2, 0.2, 0.2, 1)
-shader_parameter/scale = 10.0
+[ext_resource type="PackedScene" uid="uid://d1gwl43y5t8q7" path="res://scenes/robot.tscn" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3s371"]
 radius = 0.2
 height = 0.6
 
-[node name="Player" type="RigidBody3D" unique_id=296986034]
+[node name="Player" type="RigidBody3D" unique_id=296986034 groups=["player"]]
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
@@ -29,12 +18,11 @@ script = ExtResource("1_onrkg")
 move_speed = 3.0
 jump_force = 20.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=695229961]
-mesh = SubResource("CapsuleMesh_fcwkm")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_lkgeh")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1976811760]
 shape = SubResource("CapsuleShape3D_3s371")
 
 [node name="TrajectoryDots" type="Node3D" parent="." unique_id=1787724814]
+
+[node name="ROBOT_vA_01" parent="." unique_id=173640208 instance=ExtResource("2_g2els")]
+
+[editable path="ROBOT_vA_01"]

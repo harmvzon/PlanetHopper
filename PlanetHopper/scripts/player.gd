@@ -37,6 +37,8 @@ var _drill_timer: float = 0.0
 
 
 func _ready() -> void:
+	
+	add_to_group("player")
 	_dot_node = get_node("TrajectoryDots")
 	_build_trajectory_dots()
 	_set_dots_visible(false)
@@ -84,8 +86,8 @@ func _state_grounded(delta: float) -> void:
 		_charge = 0.0
 		_set_dots_visible(false)
 		state = State.LAUNCHED
-
-	# Mining runs every grounded frame, independent of thrust
+	
+		# Mining runs every grounded frame, independent of thrust
 	_process_mining(delta)
 
 

@@ -1,18 +1,14 @@
 [gd_scene format=4 uid="uid://d1gwl43y5t8q7"]
 
 [ext_resource type="Script" uid="uid://gv8u32mn3ysv" path="res://scripts/robot.gd" id="1_i42o3"]
-[ext_resource type="Script" uid="uid://baqngss7oc46x" path="res://scripts/goal.gd" id="2_i42o3"]
-[ext_resource type="Script" uid="uid://c1tsu1b5qbmvl" path="res://scripts/step_ray.gd" id="2_ykvnc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i42o3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykvnc"]
 albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_i42o3"]
+material = SubResource("StandardMaterial3D_ykvnc")
 inner_radius = 0.094
 outer_radius = 0.078
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcrfe"]
-albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1axm"]
 
@@ -856,179 +852,62 @@ script = ExtResource("1_i42o3")
 [node name="GOALS" type="Node3D" parent="." unique_id=1170439478]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="GOAL_L1" type="Node3D" parent="GOALS" unique_id=1874657364 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.4309337, 0.1, -0.74639904)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/L1_Ray/STEP_L1")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L2")
-opposite_target = NodePath("../GOAL_R1")
+[node name="GOAL_L1" type="Node3D" parent="GOALS" unique_id=1874657364]
+transform = Transform3D(1, 0, 6.661338e-16, 0, 1, 0, -6.661338e-16, 0, 1, 0.74639904, -0.45925233, -0.43093368)
 
 [node name="Pole_L1" type="Node3D" parent="GOALS/GOAL_L1" unique_id=1014942305]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_L1" unique_id=919225632]
-material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_L2" type="Node3D" parent="GOALS" unique_id=2131469613 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.86186737, 0.1, 3.767342e-08)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/L2_Ray/STEP_L2")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L3")
-opposite_target = NodePath("../GOAL_R2")
+[node name="GOAL_L2" type="Node3D" parent="GOALS" unique_id=2131469613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2774156e-17, -0.45925233, -0.86186737)
 
 [node name="Pole_L2" type="Node3D" parent="GOALS/GOAL_L2" unique_id=495749664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_L2" unique_id=427256083]
-material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_L3" type="Node3D" parent="GOALS" unique_id=1428102129 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.43093365, 0.1, 0.74639904)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/L3_Ray/STEP_L3")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_L1")
-opposite_target = NodePath("../GOAL_R3")
+[node name="GOAL_L3" type="Node3D" parent="GOALS" unique_id=1428102129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74639904, -0.45925233, -0.43093368)
 
 [node name="Pole_L3" type="Node3D" parent="GOALS/GOAL_L3" unique_id=1321958533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_L3" unique_id=1129592657]
-material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R1" type="Node3D" parent="GOALS" unique_id=257972115 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.43093365, 0.1, -0.74639904)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/R1_Ray/STEP_R1")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R2")
-opposite_target = NodePath("../GOAL_L1")
+[node name="GOAL_R1" type="Node3D" parent="GOALS" unique_id=257972115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74639904, -0.45925233, 0.43093368)
 
 [node name="Pole_R1" type="Node3D" parent="GOALS/GOAL_R1" unique_id=1501405062]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_R1" unique_id=1196994486]
-material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R2" type="Node3D" parent="GOALS" unique_id=1272613147 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.86186737, 0.1, -3.767342e-08)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/R2_Ray/STEP_R2")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R3")
-opposite_target = NodePath("../GOAL_L2")
+[node name="GOAL_R2" type="Node3D" parent="GOALS" unique_id=1272613147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2774156e-17, -0.45925233, 0.86186737)
 
 [node name="Pole_R2" type="Node3D" parent="GOALS/GOAL_R2" unique_id=1603168252]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_R2" unique_id=662789669]
-material_override = SubResource("StandardMaterial3D_i42o3")
 mesh = SubResource("TorusMesh_i42o3")
 
-[node name="GOAL_R3" type="Node3D" parent="GOALS" unique_id=986132935 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.4309337, 0.1, 0.74639904)
-top_level = true
-script = ExtResource("2_i42o3")
-step_target = NodePath("../../STEPS/R3_Ray/STEP_R3")
-step_distance = 0.2
-adjacent_target = NodePath("../GOAL_R1")
-opposite_target = NodePath("../GOAL_L3")
+[node name="GOAL_R3" type="Node3D" parent="GOALS" unique_id=986132935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74639904, -0.45925233, 0.43093368)
 
 [node name="Pole_R3" type="Node3D" parent="GOALS/GOAL_R3" unique_id=838311584]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GOALS/GOAL_R3" unique_id=146253344]
-material_override = SubResource("StandardMaterial3D_i42o3")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="STEPS" type="Node3D" parent="." unique_id=1387779716]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-
-[node name="L1_Ray" type="RayCast3D" parent="STEPS" unique_id=246327723 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.43093365, 0.6, 0.7463991)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_L1")
-
-[node name="STEP_L1" type="Node3D" parent="STEPS/L1_Ray" unique_id=487615831]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/L1_Ray/STEP_L1" unique_id=460250850]
-material_override = SubResource("StandardMaterial3D_rcrfe")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="L2_Ray" type="RayCast3D" parent="STEPS" unique_id=2087275449 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.86186737, 0.6, 3.767342e-08)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_L2")
-
-[node name="STEP_L2" type="Node3D" parent="STEPS/L2_Ray" unique_id=1054952571]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/L2_Ray/STEP_L2" unique_id=588515567]
-material_override = SubResource("StandardMaterial3D_rcrfe")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="L3_Ray" type="RayCast3D" parent="STEPS" unique_id=1798422902 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.4309337, 0.6, -0.746399)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_L3")
-
-[node name="STEP_L3" type="Node3D" parent="STEPS/L3_Ray" unique_id=748504330]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/L3_Ray/STEP_L3" unique_id=1341137984]
-material_override = SubResource("StandardMaterial3D_rcrfe")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="R1_Ray" type="RayCast3D" parent="STEPS" unique_id=391754227 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.4309337, 0.6, 0.746399)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_R1")
-
-[node name="STEP_R1" type="Node3D" parent="STEPS/R1_Ray" unique_id=21417413]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/R1_Ray/STEP_R1" unique_id=1655834039]
-material_override = SubResource("StandardMaterial3D_rcrfe")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="R2_Ray" type="RayCast3D" parent="STEPS" unique_id=1081483722 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.86186737, 0.6, -3.767342e-08)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_R2")
-
-[node name="STEP_R2" type="Node3D" parent="STEPS/R2_Ray" unique_id=476205592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/R2_Ray/STEP_R2" unique_id=1353681863]
-material_override = SubResource("StandardMaterial3D_rcrfe")
-mesh = SubResource("TorusMesh_i42o3")
-
-[node name="R3_Ray" type="RayCast3D" parent="STEPS" unique_id=1418983547 node_paths=PackedStringArray("step_target")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.43093365, 0.6, -0.7463991)
-script = ExtResource("2_ykvnc")
-step_target = NodePath("STEP_R3")
-
-[node name="STEP_R3" type="Node3D" parent="STEPS/R3_Ray" unique_id=555871161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="STEPS/R3_Ray/STEP_R3" unique_id=333951496]
-material_override = SubResource("StandardMaterial3D_rcrfe")
 mesh = SubResource("TorusMesh_i42o3")
 
 [node name="MAIN" type="Node3D" parent="." unique_id=424561137]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.5, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.3324299, 0)
 
 [node name="BODY" type="MeshInstance3D" parent="MAIN" unique_id=1319855754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -1062,7 +941,7 @@ bones/2/rotation = Quaternion(6.938894e-18, 2.7755576e-17, 3.469447e-18, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip" type="BoneAttachment3D" parent="MAIN/L1/Skeleton3D" unique_id=847996804]
-transform = Transform3D(0.8711409, 0.4910331, -7.113138e-08, -0.4910331, 0.8711409, -4.076456e-08, 4.194871e-08, 7.043954e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -5.594253e-17, 0.11934122, 0.9928533, 2.6453484e-19, 5.551115e-17, -6.938893e-18, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone"
 bone_idx = 0
 
@@ -1072,7 +951,7 @@ mesh = SubResource("ArrayMesh_3sfp3")
 skeleton = NodePath("")
 
 [node name="UpperLeg" type="BoneAttachment3D" parent="MAIN/L1/Skeleton3D" unique_id=1414000261]
-transform = Transform3D(0.8711409, 0.4910331, -7.113138e-08, -0.4910331, 0.8711409, -4.076456e-08, 4.194871e-08, 7.043954e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -5.594253e-17, 0.11934122, 0.9928533, 2.6453484e-19, 5.551115e-17, -6.938893e-18, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone"
 bone_idx = 0
 
@@ -1082,7 +961,7 @@ mesh = SubResource("ArrayMesh_ealcr")
 skeleton = NodePath("")
 
 [node name="Knee" type="BoneAttachment3D" parent="MAIN/L1/Skeleton3D" unique_id=1290901196]
-transform = Transform3D(0.9820615, 0.18856084, -7.886064e-08, -0.18856084, 0.9820615, 2.719105e-10, 7.749727e-08, 1.46029855e-08, 1, 0.37667757, 0.077904835, 2.9969353e-08)
+transform = Transform3D(0.9971004, -0.076096475, 4.637042e-19, 0.076096475, 0.9971004, -9.348809e-18, 2.4904423e-19, 9.356989e-18, 1, 0.25764096, 0.28561565, -3.4260365e-18)
 bone_name = "UpperLegBone"
 bone_idx = 1
 
@@ -1092,7 +971,7 @@ mesh = SubResource("ArrayMesh_2ifcd")
 skeleton = NodePath("")
 
 [node name="LowerLeg" type="BoneAttachment3D" parent="MAIN/L1/Skeleton3D" unique_id=853345797]
-transform = Transform3D(0.9820615, 0.18856084, -7.886064e-08, -0.18856084, 0.9820615, 2.719105e-10, 7.749727e-08, 1.46029855e-08, 1, 0.37667757, 0.077904835, 2.9969353e-08)
+transform = Transform3D(0.9971004, -0.076096475, 4.637042e-19, 0.076096475, 0.9971004, -9.348809e-18, 2.4904423e-19, 9.356989e-18, 1, 0.25764096, 0.28561565, -3.4260365e-18)
 bone_name = "UpperLegBone"
 bone_idx = 1
 
@@ -1142,7 +1021,7 @@ bones/2/rotation = Quaternion(-4.7377877e-32, 6.162976e-33, 0, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip_2" type="BoneAttachment3D" parent="MAIN/L2/Skeleton3D" unique_id=394129635]
-transform = Transform3D(0.8711409, 0.4910331, 1.948093e-16, -0.4910331, 0.8711409, 5.1613963e-16, 8.3735255e-17, -5.4528815e-16, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 6.3976835e-17, 0.11934122, 0.9928533, 6.5300115e-16, -1.4144957e-16, -6.4069927e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_2"
 bone_idx = 0
 
@@ -1152,7 +1031,7 @@ mesh = SubResource("ArrayMesh_4dfcr")
 skeleton = NodePath("")
 
 [node name="UpperLeg_2" type="BoneAttachment3D" parent="MAIN/L2/Skeleton3D" unique_id=48338291]
-transform = Transform3D(0.8711409, 0.4910331, 1.948093e-16, -0.4910331, 0.8711409, 5.1613963e-16, 8.3735255e-17, -5.4528815e-16, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 6.3976835e-17, 0.11934122, 0.9928533, 6.5300115e-16, -1.4144957e-16, -6.4069927e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_2"
 bone_idx = 0
 
@@ -1162,7 +1041,7 @@ mesh = SubResource("ArrayMesh_5gtyq")
 skeleton = NodePath("")
 
 [node name="Knee_2" type="BoneAttachment3D" parent="MAIN/L2/Skeleton3D" unique_id=1416988341]
-transform = Transform3D(0.9820615, 0.18856084, -2.6881004e-16, -0.18856084, 0.9820615, -8.558189e-16, 1.02614025e-16, 8.91154e-16, 1, 0.37667757, 0.077904835, 1.323489e-23)
+transform = Transform3D(0.9971004, -0.076096475, -1.5035466e-16, 0.076096475, 0.9971004, -4.6811514e-16, 1.8554065e-16, 4.5531647e-16, 1, 0.25764096, 0.28561565, -8.9400304e-17)
 bone_name = "UpperLegBone_2"
 bone_idx = 1
 
@@ -1172,7 +1051,7 @@ mesh = SubResource("ArrayMesh_ar3c5")
 skeleton = NodePath("")
 
 [node name="LowerLeg_2" type="BoneAttachment3D" parent="MAIN/L2/Skeleton3D" unique_id=1269983917]
-transform = Transform3D(0.9820615, 0.18856084, -2.6881004e-16, -0.18856084, 0.9820615, -8.558189e-16, 1.02614025e-16, 8.91154e-16, 1, 0.37667757, 0.077904835, 1.323489e-23)
+transform = Transform3D(0.9971004, -0.076096475, -1.5035466e-16, 0.076096475, 0.9971004, -4.6811514e-16, 1.8554065e-16, 4.5531647e-16, 1, 0.25764096, 0.28561565, -8.9400304e-17)
 bone_name = "UpperLegBone_2"
 bone_idx = 1
 
@@ -1222,7 +1101,7 @@ bones/2/rotation = Quaternion(0, 0, 5.2041704e-18, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip_3" type="BoneAttachment3D" parent="MAIN/L3/Skeleton3D" unique_id=540971557]
-transform = Transform3D(0.8711409, 0.4910331, -7.113138e-08, -0.4910331, 0.8711409, -4.076456e-08, 4.194871e-08, 7.043954e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 5.274977e-16, 0.11934122, 0.9928533, -2.0217064e-16, -4.9960057e-16, 2.63678e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_3"
 bone_idx = 0
 
@@ -1232,7 +1111,7 @@ mesh = SubResource("ArrayMesh_fxlfs")
 skeleton = NodePath("")
 
 [node name="UpperLeg_3" type="BoneAttachment3D" parent="MAIN/L3/Skeleton3D" unique_id=374904721]
-transform = Transform3D(0.8711409, 0.4910331, -7.113138e-08, -0.4910331, 0.8711409, -4.076456e-08, 4.194871e-08, 7.043954e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 5.274977e-16, 0.11934122, 0.9928533, -2.0217064e-16, -4.9960057e-16, 2.63678e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_3"
 bone_idx = 0
 
@@ -1242,7 +1121,7 @@ mesh = SubResource("ArrayMesh_nq6ff")
 skeleton = NodePath("")
 
 [node name="Knee_3" type="BoneAttachment3D" parent="MAIN/L3/Skeleton3D" unique_id=2052573670]
-transform = Transform3D(0.9820615, 0.18856084, -7.886064e-08, -0.18856084, 0.9820615, 2.719105e-10, 7.749727e-08, 1.46029855e-08, 1, 0.37667757, 0.077904835, 2.9969353e-08)
+transform = Transform3D(0.9971004, -0.076096475, 1.2103733e-16, 0.076096475, 0.9971004, 1.7335853e-17, -1.2200565e-16, -8.075083e-18, 1, 0.25764096, 0.28561565, 2.8419484e-17)
 bone_name = "UpperLegBone_3"
 bone_idx = 1
 
@@ -1252,7 +1131,7 @@ mesh = SubResource("ArrayMesh_nww40")
 skeleton = NodePath("")
 
 [node name="LowerLeg_3" type="BoneAttachment3D" parent="MAIN/L3/Skeleton3D" unique_id=2015638404]
-transform = Transform3D(0.9820615, 0.18856084, -7.886064e-08, -0.18856084, 0.9820615, 2.719105e-10, 7.749727e-08, 1.46029855e-08, 1, 0.37667757, 0.077904835, 2.9969353e-08)
+transform = Transform3D(0.9971004, -0.076096475, 1.2103733e-16, 0.076096475, 0.9971004, 1.7335853e-17, -1.2200565e-16, -8.075083e-18, 1, 0.25764096, 0.28561565, 2.8419484e-17)
 bone_name = "UpperLegBone_3"
 bone_idx = 1
 
@@ -1302,7 +1181,7 @@ bones/2/rotation = Quaternion(-4.814825e-35, -2.7755576e-17, -1.7347235e-18, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip_4" type="BoneAttachment3D" parent="MAIN/R1/Skeleton3D" unique_id=1326806166]
-transform = Transform3D(0.8711409, 0.4910331, 2.371046e-08, -0.4910331, 0.8711409, 1.3588182e-08, -1.3982903e-08, -2.3479842e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 4.583055e-16, 0.11934122, 0.9928533, -9.1677235e-17, -4.440892e-16, 1.4571677e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_4"
 bone_idx = 0
 
@@ -1312,7 +1191,7 @@ mesh = SubResource("ArrayMesh_qec6w")
 skeleton = NodePath("")
 
 [node name="UpperLeg_4" type="BoneAttachment3D" parent="MAIN/R1/Skeleton3D" unique_id=1532312805]
-transform = Transform3D(0.8711409, 0.4910331, 2.371046e-08, -0.4910331, 0.8711409, 1.3588182e-08, -1.3982903e-08, -2.3479842e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, 4.583055e-16, 0.11934122, 0.9928533, -9.1677235e-17, -4.440892e-16, 1.4571677e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_4"
 bone_idx = 0
 
@@ -1322,7 +1201,7 @@ mesh = SubResource("ArrayMesh_rvseq")
 skeleton = NodePath("")
 
 [node name="Knee_4" type="BoneAttachment3D" parent="MAIN/R1/Skeleton3D" unique_id=1945682929]
-transform = Transform3D(0.9820615, 0.18856084, 2.628688e-08, -0.18856084, 0.9820615, -9.063772e-11, -2.5832422e-08, -4.8676627e-09, 1, 0.37667757, 0.077904835, -9.989783e-09)
+transform = Transform3D(0.9971004, -0.076096475, 2.9119886e-16, 0.076096475, 0.9971004, -9.05123e-17, -2.8346683e-16, 1.1240905e-16, 1, 0.25764096, 0.28561565, -1.09657375e-16)
 bone_name = "UpperLegBone_4"
 bone_idx = 1
 
@@ -1332,7 +1211,7 @@ mesh = SubResource("ArrayMesh_emuj1")
 skeleton = NodePath("")
 
 [node name="LowerLeg_4" type="BoneAttachment3D" parent="MAIN/R1/Skeleton3D" unique_id=1918296187]
-transform = Transform3D(0.9820615, 0.18856084, 2.628688e-08, -0.18856084, 0.9820615, -9.063772e-11, -2.5832422e-08, -4.8676627e-09, 1, 0.37667757, 0.077904835, -9.989783e-09)
+transform = Transform3D(0.9971004, -0.076096475, 2.9119886e-16, 0.076096475, 0.9971004, -9.05123e-17, -2.8346683e-16, 1.1240905e-16, 1, 0.25764096, 0.28561565, -1.09657375e-16)
 bone_name = "UpperLegBone_4"
 bone_idx = 1
 
@@ -1382,7 +1261,7 @@ bones/2/rotation = Quaternion(4.7377877e-32, -6.162976e-33, 0, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip_5" type="BoneAttachment3D" parent="MAIN/R2/Skeleton3D" unique_id=311109922]
-transform = Transform3D(0.8711409, 0.4910331, -1.948093e-16, -0.4910331, 0.8711409, -5.1613963e-16, -8.3735255e-17, 5.4528815e-16, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -6.3976835e-17, 0.11934122, 0.9928533, -6.5300115e-16, 1.4144957e-16, 6.4069927e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_5"
 bone_idx = 0
 
@@ -1392,7 +1271,7 @@ mesh = SubResource("ArrayMesh_xfq0j")
 skeleton = NodePath("")
 
 [node name="UpperLeg_5" type="BoneAttachment3D" parent="MAIN/R2/Skeleton3D" unique_id=1555479393]
-transform = Transform3D(0.8711409, 0.4910331, -1.948093e-16, -0.4910331, 0.8711409, -5.1613963e-16, -8.3735255e-17, 5.4528815e-16, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -6.3976835e-17, 0.11934122, 0.9928533, -6.5300115e-16, 1.4144957e-16, 6.4069927e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_5"
 bone_idx = 0
 
@@ -1402,7 +1281,7 @@ mesh = SubResource("ArrayMesh_ijk8y")
 skeleton = NodePath("")
 
 [node name="Knee_5" type="BoneAttachment3D" parent="MAIN/R2/Skeleton3D" unique_id=1006528276]
-transform = Transform3D(0.9820615, 0.18856084, 2.6875953e-16, -0.18856084, 0.9820615, 8.5590064e-16, -1.02549015e-16, -8.912248e-16, 1, 0.37667757, 0.077904835, -1.323489e-23)
+transform = Transform3D(0.9971004, -0.076096475, 1.5035466e-16, 0.076096475, 0.9971004, 4.6811514e-16, -1.8554065e-16, -4.5531647e-16, 1, 0.25764096, 0.28561565, 8.9400304e-17)
 bone_name = "UpperLegBone_5"
 bone_idx = 1
 
@@ -1412,7 +1291,7 @@ mesh = SubResource("ArrayMesh_vr4k2")
 skeleton = NodePath("")
 
 [node name="LowerLeg_5" type="BoneAttachment3D" parent="MAIN/R2/Skeleton3D" unique_id=607020052]
-transform = Transform3D(0.9820615, 0.18856084, 2.6875953e-16, -0.18856084, 0.9820615, 8.5590064e-16, -1.02549015e-16, -8.912248e-16, 1, 0.37667757, 0.077904835, -1.323489e-23)
+transform = Transform3D(0.9971004, -0.076096475, 1.5035466e-16, 0.076096475, 0.9971004, 4.6811514e-16, -1.8554065e-16, -4.5531647e-16, 1, 0.25764096, 0.28561565, 8.9400304e-17)
 bone_name = "UpperLegBone_5"
 bone_idx = 1
 
@@ -1462,7 +1341,7 @@ bones/2/rotation = Quaternion(0, 0, -5.2041704e-18, 1)
 bones/2/scale = Vector3(1, 1, 1)
 
 [node name="Hip_6" type="BoneAttachment3D" parent="MAIN/R3/Skeleton3D" unique_id=1588085467]
-transform = Transform3D(0.87114096, 0.491033, -2.371046e-08, -0.491033, 0.87114096, -1.3588185e-08, 1.39829055e-08, 2.3479842e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -9.1182653e-17, 0.11934122, 0.9928533, -1.7170353e-16, 1.110223e-16, 1.5959456e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_6"
 bone_idx = 0
 
@@ -1472,7 +1351,7 @@ mesh = SubResource("ArrayMesh_u0ddx")
 skeleton = NodePath("")
 
 [node name="UpperLeg_6" type="BoneAttachment3D" parent="MAIN/R3/Skeleton3D" unique_id=1695836533]
-transform = Transform3D(0.87114096, 0.491033, -2.371046e-08, -0.491033, 0.87114096, -1.3588185e-08, 1.39829055e-08, 2.3479842e-08, 1, 0, -4.4222986e-10, 0)
+transform = Transform3D(0.9928533, -0.11934122, -9.1182653e-17, 0.11934122, 0.9928533, -1.7170353e-16, 1.110223e-16, 1.5959456e-16, 1, 0, -4.4222986e-10, 0)
 bone_name = "HipBone_6"
 bone_idx = 0
 
@@ -1482,7 +1361,7 @@ mesh = SubResource("ArrayMesh_x56bu")
 skeleton = NodePath("")
 
 [node name="Knee_6" type="BoneAttachment3D" parent="MAIN/R3/Skeleton3D" unique_id=943147087]
-transform = Transform3D(0.9820614, 0.18856105, -2.628688e-08, -0.18856105, 0.9820614, 9.0640384e-11, 2.5832424e-08, 4.867667e-09, 1, 0.37667757, 0.07790488, 9.989784e-09)
+transform = Transform3D(0.9971004, -0.076096475, 3.5276746e-16, 0.076096475, 0.9971004, -8.8244295e-16, -2.845938e-16, 9.067287e-16, 1, 0.25764096, 0.28561565, 3.7006466e-17)
 bone_name = "UpperLegBone_6"
 bone_idx = 1
 
@@ -1492,7 +1371,7 @@ mesh = SubResource("ArrayMesh_ve8sw")
 skeleton = NodePath("")
 
 [node name="LowerLeg_6" type="BoneAttachment3D" parent="MAIN/R3/Skeleton3D" unique_id=949269106]
-transform = Transform3D(0.9820614, 0.18856105, -2.628688e-08, -0.18856105, 0.9820614, 9.0640384e-11, 2.5832424e-08, 4.867667e-09, 1, 0.37667757, 0.07790488, 9.989784e-09)
+transform = Transform3D(0.9971004, -0.076096475, 3.5276746e-16, 0.076096475, 0.9971004, -8.8244295e-16, -2.845938e-16, 9.067287e-16, 1, 0.25764096, 0.28561565, 3.7006466e-17)
 bone_name = "UpperLegBone_6"
 bone_idx = 1
 
