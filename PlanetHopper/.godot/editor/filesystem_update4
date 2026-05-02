@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 res://scenes/solar_system.tscn
 res://mat/checkerboard.gdshader
 res://mat/planet_noise.gdshader
@@ -7,3 +8,14 @@ res://scripts/stats.gd
 res://scenes/robot.tscn
 res://scripts/HexapodWalker.gd
 res://scripts/LegController.gd
+=======
+res://scenes/tiny_planet.tscn
+res://mat/planet_noise.gdshader
+res://mat/PostProcessing.gdshader
+res://mat/checkerboard.gdshader
+res://scripts/tiny_planet.gd
+res://Sphere-Forms-Godot-Plugin-d75bdf16b5914c0309e7d9750adb31762c53db0f/addons/SphereFormsPlugin/CubeSphereMesh.gd
+res://mat/terrain.gdshader
+res://mat/water.gdshader
+res://scripts/planet.gd
+>>>>>>> Stashed changes

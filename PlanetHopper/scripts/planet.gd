@@ -28,7 +28,7 @@ const BASE_ORBIT_SPEED: float = 1.2
 const MINE_STEP: float = 0.02
 
 const BIOME_COLORS: Dictionary = {
-	Biome.LUSH:  {"a": Color(0.1, 0.5, 0.2), "b": Color(0.3, 0.8, 0.4), "c": Color(0.5, 1.0, 0.6)},
+	Biome.LUSH:  {"a": Color(0.036, 0.259, 0.091, 1.0), "b": Color(0.3, 0.8, 0.4), "c": Color(0.5, 1.0, 0.6)},
 	Biome.ARID:  {"a": Color(0.6, 0.5, 0.2), "b": Color(0.8, 0.7, 0.3), "c": Color(1.0, 0.9, 0.5)},
 	Biome.LAVA:  {"a": Color(0.5, 0.1, 0.0), "b": Color(0.9, 0.2, 0.1), "c": Color(1.0, 0.5, 0.0)},
 	Biome.ICE:   {"a": Color(0.3, 0.7, 1.0), "b": Color(0.6, 0.85, 1.0), "c": Color(1.0, 1.0, 1.0)},

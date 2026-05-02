@@ -1,7 +1,29 @@
 [gd_scene format=4 uid="uid://d1gwl43y5t8q7"]
 
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://6lujwv72qj8j" path="res://scripts/HexapodWalker.gd" id="1_ykvnc"]
 [ext_resource type="Script" uid="uid://wbbgssqn7g7m" path="res://scripts/LegController.gd" id="2_i42o3"]
+=======
+[ext_resource type="Script" path="res://scripts/robot.gd" id="1_i42o3"]
+[ext_resource type="Script" path="res://scripts/hexapodLeg.gd" id="2_rcrfe"]
+[ext_resource type="Script" path="res://scripts/step_ray.gd" id="2_ykvnc"]
+[ext_resource type="Script" path="res://scripts/hexapodGaitController.gd" id="4_rcrfe"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="4_xwnim"]
+[ext_resource type="Texture2D" uid="uid://baxmw71tb6dvr" path="res://models/ROBOT_vA_01_0.png" id="6_q5kvo"]
+[ext_resource type="Material" uid="uid://vqb54nfppsfl" path="res://mat/RobotBody.tres" id="6_ujkns"]
+[ext_resource type="Material" uid="uid://kaj5de7lfq6t" path="res://mat/DarkMetal.tres" id="7_e20l1"]
+[ext_resource type="Texture2D" uid="uid://b6kwtc6pdker2" path="res://mat/textures/BotFace.png" id="9_sycts"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i42o3"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_i42o3"]
+inner_radius = 0.094
+outer_radius = 0.078
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcrfe"]
+albedo_color = Color(0, 1, 0, 1)
+>>>>>>> Stashed changes
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1axm"]
 
