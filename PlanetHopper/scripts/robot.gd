@@ -1,46 +1,47 @@
 extends Node3D
 
+@export_category("Movement")
 @export var move_speed: float = 5.0
-@export var turn_speed: float = 1.0  # -1, 0, or 1
-@export var ground_offset : float = 0.5
 
-@export var L1 : Node3D
-@export var L2 : Node3D
-@export var L3 : Node3D
-@export var R1 : Node3D
-@export var R2 : Node3D
-@export var R3 : Node3D
+@export_category("Facing")
+@export var face_left_yaw_deg: float = 90.0
+@export var face_right_yaw_deg: float = -90.0
+@export var turn_instant: bool = true
+@export var turn_speed: float = 20.0
 
-func _process(delta: float) -> void:
-	
-	var plane1 = Plane(L1.global_position, R2.global_position, L3.global_position)
-	var plane2 = Plane(R1.global_position, L2.global_position, R3.global_position)
-	var avg_normal = ((plane1.normal + plane2.normal) / 2).normalized()
-	
-	#var target_basis = _basis_from_normal(avg_normal)
-	#transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
-	
-	#var avg = (L1.position + L2.position + L3.position + R1.position + R2.position + R3.position) / 6
-	#var target_pos = avg + transform.basis.y * ground_offset
-	#var distance = transform.basis.y.dot(target_pos - position)
-	#position = lerp(position, position + transform.basis.y * distance, move_speed * delta)
-		
-	
-	_handle_movement(delta)
-	
-	
-	
-func _handle_movement(delta):
-	var dir = Input.get_axis("move_left", "move_right")
-	translate(Vector3(0, 0, -dir) * move_speed * delta)
-	
-	var a_dir = Input.get_axis("move_forward", "move_back")
-	rotate_object_local(Vector3.UP, a_dir * turn_speed * delta)
+var velocity_x: float = 0.0
+var move_input: float = 0.0
+var facing_right: bool = true
+var is_moving: bool = false
 
-func _basis_from_normal(normal: Vector3) -> Basis:
-	var result = Basis()
-	result.x *= scale.x
-	result.y *= scale.y
-	result.z *= scale.z
+func _physics_process(delta: float) -> void:
+	move_input = Input.get_axis("move_left", "move_right")
+	is_moving = not is_zero_approx(move_input)
+
+	# Store this so other scripts can use clean motion data.
+	velocity_x = move_input * move_speed
+
+	# Move only on X for your side-view setup.
+	global_position.x += velocity_x * delta
+
+	if is_moving:
+		_update_facing(delta)
+
+func _update_facing(delta: float) -> void:
+	if move_input > 0.0:
+		facing_right = true
+	elif move_input < 0.0:
+		facing_right = false
+
+	var target_yaw_deg: float = face_right_yaw_deg
+	if not facing_right:
+		target_yaw_deg = face_left_yaw_deg
+
+	var target_yaw: float = deg_to_rad(target_yaw_deg)
+
+	if turn_instant:
+		rotation.y = target_yaw
+	else:
+		var t: float = 1.0 - exp(-turn_speed * delta)
+		rotation.y = lerp_angle(rotation.y, target_yaw, t)
 	
-	return result

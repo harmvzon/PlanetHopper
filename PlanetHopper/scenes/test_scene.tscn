@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://sgktcxnk3r6b"]
 
-[ext_resource type="PackedScene" uid="uid://d1gwl43y5t8q7" path="res://scenes/robot.tscn" id="1_g7g4h"]
+[ext_resource type="PackedScene" path="res://scenes/robot.tscn" id="1_g7g4h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_j8ivh"]
 size = Vector2(100, 100)
