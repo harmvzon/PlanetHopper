@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://5ss0daebv6j5"]
+
+[ext_resource type="Texture2D" uid="uid://d4d362mpe13ol" path="res://mat/textures/BotFace.png" id="1_3wmhu"]
+
+[resource]
+albedo_texture = ExtResource("1_3wmhu")
+emission_enabled = true
+emission_texture = ExtResource("1_3wmhu")
+uv1_scale = Vector3(2.285, 2.285, 2.285)
+uv1_offset = Vector3(-0.065, -0.21, 0)

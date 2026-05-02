@@ -1,14 +1,3 @@
-<<<<<<< Updated upstream
-res://scenes/solar_system.tscn
-res://mat/checkerboard.gdshader
-res://mat/planet_noise.gdshader
-res://mat/PostProcessing.gdshader
-res://scenes/Stats.tscn
-res://scripts/stats.gd
-res://scenes/robot.tscn
-res://scripts/HexapodWalker.gd
-res://scripts/LegController.gd
-=======
 res://scenes/tiny_planet.tscn
 res://mat/planet_noise.gdshader
 res://mat/PostProcessing.gdshader
@@ -18,4 +7,16 @@ res://Sphere-Forms-Godot-Plugin-d75bdf16b5914c0309e7d9750adb31762c53db0f/addons/
 res://mat/terrain.gdshader
 res://mat/water.gdshader
 res://scripts/planet.gd
->>>>>>> Stashed changes
+res://scenes/robot.tscn
+res://scripts/camera_3d.gd
+res://scripts/player.gd
+res://Sphere-Forms-Godot-Plugin-d75bdf16b5914c0309e7d9750adb31762c53db0f/addons/SphereFormsPlugin/IcoSphereMesh.gd
+res://Sphere-Forms-Godot-Plugin-d75bdf16b5914c0309e7d9750adb31762c53db0f/addons/SphereFormsPlugin/OctaSphereMesh.gd
+res://Sphere-Forms-Godot-Plugin-d75bdf16b5914c0309e7d9750adb31762c53db0f/addons/SphereFormsPlugin/plugin.gd
+res://scenes/solar_system.tscn
+res://scenes/player.tscn
+res://scripts/main.gd
+res://scripts/hexapodLeg.gd
+res://scenes/test_scene.tscn
+res://mat/RobotBody.tres
+res://mat/BotFace.tres
