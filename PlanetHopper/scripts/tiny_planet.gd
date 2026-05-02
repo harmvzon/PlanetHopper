@@ -18,22 +18,48 @@ extends Node3D
 			update_water()
 
 @export_group("Terrain")
-@export var noise := FastNoiseLite.new():
-	set(new_noise):
-		noise = new_noise
-		if noise: 
-			noise.changed.connect(update_terrain)
+
 @export var height := 1.0:
 	set(new_height):
 		height = maxf(0.0, new_height)
 		update_terrain()
 		update_water()
+
+@export var mid_level := 0.5:
+	set(new_mid_level):
+		mid_level = maxf(0.0, new_mid_level)
+		update_terrain()
+		update_water()
+		
+@export_range(0.0, 1.0, 0.05) var noise_mix := 0.5:
+	set(new_noise_mix):
+		noise_mix = new_noise_mix
+		update_water()
+		update_terrain()
+		
 @export var terrain_material: ShaderMaterial:
 	set(new_terrain_material):
 		terrain_material = new_terrain_material
 		if is_node_ready():
 			$Terrain.set_surface_override_material(0, terrain_material)
 			update_shader_params()
+
+@export var noise_large:= FastNoiseLite.new():
+	set(new_noise):
+		noise_large = new_noise
+		if noise_large:
+			noise_large.changed.connect(update_terrain)
+
+@export var noise_small:= FastNoiseLite.new():
+	set(new_noise):
+		noise_small = new_noise
+		if noise_small:
+			noise_small.changed.connect(update_terrain)
+
+@export var playable_band_smoothness := 0.8:
+	set(new_smoothness):
+		playable_band_smoothness = clampf(new_smoothness, 0.0, 1.0)
+		update_terrain()
 
 
 	
@@ -43,8 +69,8 @@ extends Node3D
 		water_level = new_water_level
 		update_water()
 @export var water_detail := 32:
-	set(new_water_level):
-		water_detail = maxi(1, new_water_level)
+	set(new_water_detail):
+		water_detail = maxi(1, new_water_detail)
 		update_water()
 @export var water_material: ShaderMaterial:
 	set(new_water_material):
@@ -84,13 +110,35 @@ func create_sphere(sphere_radius: float, sphere_detail: int) -> Array:
 	# Extract the mesh arrays from surface 0
 	return sphere.surface_get_arrays(0)
 
+
+
 func get_noise(vertex: Vector3) -> float:
-	return (noise.get_noise_3dv(vertex.normalized() * 2.0) + 1.0) / 2.0 * height
+	var normalized := vertex.normalized()
+	
+	# Large deformation (macro shape)
+	var large := (noise_large.get_noise_3dv(normalized * 2.0) + 1.0) / 2.0
+	
+	# Small detail (surface roughness)
+	var small := (noise_small.get_noise_3dv(normalized * 2.0) + 1.0) / 2.0
+	
+	# Blend: 70% macro, 30% detail (tune to taste)
+	var combined := lerpf(large, small, noise_mix)
+	
+	combined = combined * 2.0 - (mid_level*2)
+	
+	# Playable band mask: assume Y-axis is player's walking plane
+	# Suppress noise near Y ≈ 0 (equator strip)
+	#var band_mask := 1.0 - pow(1.0 - abs(normalized.x), playable_band_smoothness)
+	
+	var disp := combined * height
+	
+	return disp
+
 	
 	
 
 func update_terrain() -> void:
-	if !terrain or !noise:
+	if !terrain or !noise_large or !noise_small:
 		return
 	
 	var mesh_arrays := create_sphere(radius, detail)
@@ -121,7 +169,7 @@ func update_water() -> void:
 		
 	$Water.visible = true
 	
-	var water_radius := lerpf(radius, radius + height, water_level)
+	var water_radius := lerpf(radius, radius + (height/2), water_level)
 	
 	var mesh_arrays := create_sphere(water_radius, water_detail)
 	
