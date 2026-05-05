@@ -30,9 +30,21 @@ noise_type = 3
 frequency = 0.2
 fractal_octaves = 8
 
+[sub_resource type="Gradient" id="Gradient_f6d0i"]
+offsets = PackedFloat32Array(0.06811989, 0.62125343)
+colors = PackedColorArray(0, 0.07568007, 0.15803638, 1, 0, 0, 0.25882354, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cq03g"]
+gradient = SubResource("Gradient_f6d0i")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adq5g"]
 render_priority = 0
 shader = ExtResource("3_f6d0i")
+shader_parameter/specular = 0.405
+shader_parameter/roughness = 0.285
+shader_parameter/radius = 7.0
+shader_parameter/level = 8.85
+shader_parameter/gradient = SubResource("GradientTexture1D_cq03g")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_f6d0i"]
 _surfaces = [{

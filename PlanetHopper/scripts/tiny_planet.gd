@@ -121,7 +121,7 @@ func get_noise(vertex: Vector3) -> float:
 	# Small detail (surface roughness)
 	var small := (noise_small.get_noise_3dv(normalized * 2.0) + 1.0) / 2.0
 	
-	# Blend: 70% macro, 30% detail (tune to taste)
+	# Blend
 	var combined := lerpf(large, small, noise_mix)
 	
 	combined = combined * 2.0 - (mid_level*2)
